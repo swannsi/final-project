@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-sm-2">
+            <h1 class="text-center mt-3 mb-3">Welcome to latest polls List!</h1>
+
+            {% if latest_question_list %}
+                <ul class="list-group">
+                    {% for question in latest_question_list %}
+                    {% if not question.active%}
+                    <li class="list-group-item"><a href="{% url 'polls:results' question.id %}">{{question.question_text}}
+                        <i class="fas fa-check-circle ml-2"></i>
+                        </a>
+                        
+                    </li>
+                    {% else %}
+                    <li class="list-group-item"><a href="{% url 'polls:detail' question.id %}">{{question.question_text}}
+                        </a>
+                        
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No polls are available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
